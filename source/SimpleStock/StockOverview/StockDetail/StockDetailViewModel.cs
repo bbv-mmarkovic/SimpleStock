@@ -19,17 +19,16 @@
 namespace SimpleStock.StockOverview.StockDetail
 {
     using System.ComponentModel;
+    using System.Drawing;
+    using System.Drawing.Imaging;
+    using System.IO;
+    using System.Windows.Media.Imaging;
 
     using SimpleStock.StockService;
 
     public class StockDetailViewModel : INotifyPropertyChanged
     {
         private StockDetailModel stockDetail;
-
-        public StockDetailViewModel()
-        {
-            this.StockDetail = new StockDetailModel { Name = "Dummy" };
-        }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -43,8 +42,27 @@ namespace SimpleStock.StockOverview.StockDetail
             set
             {
                 this.stockDetail = value;
+
                 this.RaisePropertyChanged("StockDetail");
+                this.RaisePropertyChanged("PositiveChange");
+                this.RaisePropertyChanged("NegativeChange");
+                this.RaisePropertyChanged("ChartImage");
             }
+        }
+
+        public bool PositiveChange
+        {
+            get { return this.stockDetail != null && this.stockDetail.DailyChange > 0; }
+        }
+
+        public bool NegativeChange
+        {
+            get { return this.stockDetail != null && this.stockDetail.DailyChange < 0; }
+        }
+
+        public BitmapImage ChartImage
+        {
+            get { return this.stockDetail != null ? ConvertToBitmapImage(this.stockDetail.Chart) : new BitmapImage(); }
         }
 
         public void SetStockDetail(StockDetailInfo stockDetailInfo)
@@ -76,6 +94,27 @@ namespace SimpleStock.StockOverview.StockDetail
                 ValorSymbol = stockDetailInfo.ValorSymbol,
                 WebSite = stockDetailInfo.WebSite
             };
+        }
+
+        private static BitmapImage ConvertToBitmapImage(Image img)
+        {
+            var bitmapImage = new BitmapImage();
+            bitmapImage.BeginInit();
+            bitmapImage.CreateOptions = BitmapCreateOptions.None;
+            bitmapImage.CacheOption = BitmapCacheOption.Default;
+            bitmapImage.StreamSource = ImageToStream(img);
+            bitmapImage.EndInit();
+
+            return bitmapImage;
+        }
+
+        private static MemoryStream ImageToStream(Image imageIn)
+        {
+            var ms = new MemoryStream();
+            imageIn.Save(ms, ImageFormat.Png);
+            ms.Flush();
+
+            return ms;
         }
     }
 }

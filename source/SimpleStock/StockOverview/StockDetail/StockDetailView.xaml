@@ -5,23 +5,116 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:StockDetail="clr-namespace:SimpleStock.StockOverview.StockDetail"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DataContext="{x:Static StockDetail:StockDetailView.SampleData}"
+             d:DesignHeight="360" d:DesignWidth="800">
+
     <UserControl.DataContext>
         <StockDetail:StockDetailViewModel />
     </UserControl.DataContext>
+
+    <UserControl.Resources>
+
+        <BooleanToVisibilityConverter x:Key="BoolToVisConverter" />
+        <StockDetail:StockChangeToColorConverter x:Key="ChangeToColorConverter" />
+
+        <!-- Styles -->
+
+        <Style x:Key="StockName" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="20" />
+            <Setter Property="TextWrapping" Value="Wrap" />
+            <Setter Property="Margin" Value="4, 0, 0, 0" />
+        </Style>
+        <Style x:Key="StockTrade" TargetType="Label">
+            <Setter Property="FontSize" Value="15" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+        <Style x:Key="ChangeIcon" TargetType="Image">
+            <Setter Property="HorizontalAlignment" Value="Right" />
+            <Setter Property="Margin" Value="0, -40, 20, 20" />
+        </Style>
+        <LinearGradientBrush x:Key="LabelBrush" StartPoint="0,0" EndPoint="0,1">
+            <GradientBrush.GradientStops>
+                <GradientStopCollection>
+                    <GradientStop Offset="0.0" Color="#FFF0EDED"/>
+                    <GradientStop Offset="1.0" Color="#FFE1E0E0"/>
+                </GradientStopCollection>
+            </GradientBrush.GradientStops>
+        </LinearGradientBrush>
+
+        <!-- END  Styles -->
+
+    </UserControl.Resources>
+
     <StackPanel Background="White">
-        <Label Content="{Binding StockDetail.Name}" />
+        <TextBlock Text="{Binding StockDetail.Name}" Style="{StaticResource StockName}" />
         <Label Content="{Binding StockDetail.ValorSymbol}" />
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="70" />
-                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="310" />
+                <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
+                <RowDefinition Height="40" />
+                <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <Label Grid.Column="0" Grid.Row="0" Content="{Binding StockDetail.LastTrade}" />
-            <Image Grid.Column="0" Grid.Row="1" />
+            <Label Grid.Column="0" Grid.Row="0" 
+                   Style="{StaticResource StockTrade}"
+                   Content="{Binding StockDetail.LastTrade}" />
+            <Image Grid.Column="1" Grid.Row="0" 
+                   Source="Images/Up.png" 
+                   Style="{StaticResource ChangeIcon}"
+                   Visibility="{Binding PositiveChange, Converter={StaticResource BoolToVisConverter}}"
+                   />
+            <Image Grid.Column="1" Grid.Row="0" 
+                   Source="Images/Down.png" 
+                   Style="{StaticResource ChangeIcon}"
+                   Visibility="{Binding NegativeChange, Converter={StaticResource BoolToVisConverter}}"
+                   />
+            <Grid Margin="4, 0, 0, 0" Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="130" />
+                    <ColumnDefinition Width="180" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <!-- Labels -->
+                <Label Grid.Column="0" Grid.Row="0" Background="{StaticResource LabelBrush}" Content="ISIN" />
+                <Label Grid.Column="0" Grid.Row="1" Background="{StaticResource LabelBrush}" Content="Daily Change" />
+                <Label Grid.Column="0" Grid.Row="2" Background="{StaticResource LabelBrush}" Content="Daily Volume" />
+                <Label Grid.Column="0" Grid.Row="3" Background="{StaticResource LabelBrush}" Content="Last Trade" />
+                <Label Grid.Column="0" Grid.Row="4" Background="{StaticResource LabelBrush}" Content="Daily High" />
+                <Label Grid.Column="0" Grid.Row="5" Background="{StaticResource LabelBrush}" Content="Daily Low" />
+                <Label Grid.Column="0" Grid.Row="6" Background="{StaticResource LabelBrush}" Content="Next General Meeting" />
+                <Label Grid.Column="0" Grid.Row="7" Background="{StaticResource LabelBrush}" Content="Valor Symbol" />
+                <Label Grid.Column="0" Grid.Row="8" Background="{StaticResource LabelBrush}" Content="Web Site" />
+                <!-- Data -->
+                <Label Grid.Column="1" Grid.Row="0" Content="{Binding StockDetail.Id}" />
+                <Label Grid.Column="1" Grid.Row="1" Content="{Binding StockDetail.DailyChange}"
+                   FontWeight="Bold"
+                   Foreground="{Binding StockDetail.DailyChange, Converter={StaticResource ChangeToColorConverter}}" />
+                <Label Grid.Column="1" Grid.Row="2" Content="{Binding StockDetail.DailyVolume}" />
+                <Label Grid.Column="1" Grid.Row="3" Content="{Binding StockDetail.LastTrade}" />
+                <Label Grid.Column="1" Grid.Row="4" Content="{Binding StockDetail.DailyHigh}" />
+                <Label Grid.Column="1" Grid.Row="5" Content="{Binding StockDetail.DailyLow}" />
+                <Label Grid.Column="1" Grid.Row="6" Content="{Binding StockDetail.NextGeneralMeeting}" />
+                <Label Grid.Column="1" Grid.Row="7" Content="{Binding StockDetail.ValorSymbol}" />
+                <Label Grid.Column="1" Grid.Row="8" Content="{Binding StockDetail.WebSite}" />
+            </Grid>
+            <Image Grid.Column="1" Grid.Row="1"
+                   Source="{Binding ChartImage}" 
+                   VerticalAlignment="Top"
+                   HorizontalAlignment="Left" 
+                   Stretch="None" />
         </Grid>
     </StackPanel>
 </UserControl>

@@ -38,7 +38,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
     <DebugType>full</DebugType>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <CodeAnalysisLogFile>bin\Debug\SimpleStock.exe.CodeAnalysisLog.xml</CodeAnalysisLogFile>
@@ -53,7 +53,7 @@
     <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
-    <OutputPath>bin\Release\</OutputPath>
+    <OutputPath>..\..\Binaries\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>
@@ -89,6 +89,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="StockOverview\StockDetail\StockChangeToColorConverter.cs" />
     <Compile Include="StockOverview\StockOverviewView.xaml.cs">
       <DependentUpon>StockOverviewView.xaml</DependentUpon>
     </Compile>
@@ -103,11 +104,6 @@
       <DependentUpon>StockDetailView.xaml</DependentUpon>
     </Compile>
     <Compile Include="StockOverview\StockDetail\StockDetailViewModel.cs" />
-    <Compile Include="StockOverview\StockDetail\StockSymbols.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>StockSymbols.resx</DependentUpon>
-    </Compile>
     <Compile Include="StockService\StockEntry.cs" />
     <Compile Include="StockService\StockDetailInfo.cs" />
     <Compile Include="StockOverview\StockList\StockListItemModel.cs" />
@@ -164,10 +160,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>StockCharts.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="StockOverview\StockDetail\StockSymbols.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>StockSymbols.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -175,7 +167,7 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="StockOverview\Images\abbn.png" />
+    <Resource Include="StockOverview\Images\abbn.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="StockOverview\Images\csgn.png" />
@@ -196,13 +188,16 @@
     <None Include="StockOverview\Images\uhr.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="StockOverview\StockDetail\Images\Down.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="StockOverview\StockDetail\Images\Up.png" />
+    <Resource Include="StockOverview\StockDetail\Images\Up.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Background.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="StockOverview\StockDetail\Images\Down.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\stocks.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

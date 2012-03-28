@@ -7,16 +7,16 @@
              xmlns:StockList1="clr-namespace:SimpleStock.StockOverview.StockList" 
              xmlns:local="clr-namespace:SimpleStock.StockOverview"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="300" d:DesignWidth="600">
     <UserControl.DataContext>
         <local:StockOverviewViewModel />
     </UserControl.DataContext>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="220" />
+            <ColumnDefinition Width="230" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        <StockList1:StockListView Grid.Column="0" x:Name="stockList" />
-        <StockDetail:StockDetailView Grid.Column="1" x:Name="stockDetail" />
+        <StockList1:StockListView Grid.Column="0" x:Name="stockList" Margin="5" />
+        <StockDetail:StockDetailView Grid.Column="1" x:Name="stockDetail" Margin="5" />
     </Grid>
 </UserControl>

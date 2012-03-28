@@ -18,6 +18,7 @@
 
 namespace SimpleStock.StockOverview.StockDetail
 {
+    using System;
     using System.Windows.Controls;
 
     /// <summary>
@@ -29,6 +30,30 @@ namespace SimpleStock.StockOverview.StockDetail
         {
             this.InitializeComponent();
             this.DataContext = new StockDetailViewModel();
+        }
+
+        public static object SampleData
+        {
+            get
+            {
+                return new StockDetailViewModel
+                {
+                    StockDetail = new StockDetailModel
+                    {
+                        Chart = StockCharts.CH0010570759,
+                        DailyChange = 0.56m,
+                        DailyHigh = 33150m,
+                        DailyLow = 32880m,
+                        DailyVolume = 99m,
+                        Id = "CH0010570759",
+                        LastTrade = 33150m,
+                        Name = "Chocoladefabriken Lindt & Sprüngli AG",
+                        NextGeneralMeeting = new DateTime(2012, 4, 26),
+                        ValorSymbol = "LISN",
+                        WebSite = "http://www.lindt.com"
+                    }
+                };
+            }
         }
     }
 }

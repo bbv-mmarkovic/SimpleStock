@@ -2,11 +2,27 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
         xmlns:StockOverview="clr-namespace:SimpleStock.StockOverview"
-        Title="MainWindow" Height="350" Width="525">
+        Title="Simple Stock - MVVM Application" Height="500" Width="920" ResizeMode="NoResize" Icon="/SimpleStock;component/Images/stocks.ico">
     <Window.Background>
         <ImageBrush ImageSource="/SimpleStock;component/Images/Background.jpg" Stretch="Fill" TileMode="Tile" />
     </Window.Background>
-    <Grid Margin="15,50,15,20">
-        <StockOverview:StockOverviewView />
-    </Grid>
+    <StackPanel>
+        <Grid Margin="15, 10, 0, 0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="70" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Image Height="64" 
+                   HorizontalAlignment="Left" 
+                   Width="64" 
+                   Source="/SimpleStock;component/Images/stocks.ico" />
+            <Label Grid.Column="1"
+                   Content="Simple Stock"
+                   FontSize="36"
+                   Foreground="White" />
+        </Grid>
+        <StockOverview:StockOverviewView 
+            Margin="15, 5, 15, 20" 
+            Height="370" />
+    </StackPanel>
 </Window>
