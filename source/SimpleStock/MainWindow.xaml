@@ -1,0 +1,12 @@
+﻿<Window x:Class="SimpleStock.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+        xmlns:StockOverview="clr-namespace:SimpleStock.StockOverview"
+        Title="MainWindow" Height="350" Width="525">
+    <Window.Background>
+        <ImageBrush ImageSource="/SimpleStock;component/Images/Background.jpg" Stretch="Fill" TileMode="Tile" />
+    </Window.Background>
+    <Grid Margin="15,50,15,20">
+        <StockOverview:StockOverviewView />
+    </Grid>
+</Window>
