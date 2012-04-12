@@ -18,6 +18,8 @@
 
 namespace SimpleStock.StockOverview.StockList
 {
+    using System;
+    using System.Collections.ObjectModel;
     using System.Windows.Controls;
 
     using SimpleStock.StockService;
@@ -31,6 +33,19 @@ namespace SimpleStock.StockOverview.StockList
         {
             this.InitializeComponent();
             this.DataContext = new StockListViewModel(new StockService());
+        }
+
+        public static object SampleData
+        {
+            get
+            {
+                var item1 = new StockListItemModel { Name = "Item 1" };
+                var item2 = new StockListItemModel { Name = "Item 2" };
+                var item3 = new StockListItemModel { Name = "Item 3" };
+                var col = new ObservableCollection<StockListItemModel> { item1, item2, item3 };
+
+                return new StockListViewModel(new StockService()) { SearchText = "UB*", StockList = col, CurrentStockItem = item2 };
+            }
         }
     }
 }

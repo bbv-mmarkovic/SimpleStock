@@ -44,8 +44,11 @@ namespace SimpleStock.StockOverview
 
         private void StockListPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
         {
-            StockDetailInfo stockDetailInfo = this.stockService.GetStockDetail(this.stockListViewModel.CurrentStockItem.Id);
-            this.stockDetailViewModel.SetStockDetail(stockDetailInfo);
+            if (this.stockListViewModel.CurrentStockItem != null)
+            {
+                StockDetailInfo stockDetailInfo = this.stockService.GetStockDetail(this.stockListViewModel.CurrentStockItem.Id);
+                this.stockDetailViewModel.SetStockDetail(stockDetailInfo);
+            }
         }
     }
 }

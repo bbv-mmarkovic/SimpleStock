@@ -90,6 +90,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="StockOverview\StockDetail\StockChangeToColorConverter.cs" />
+    <Compile Include="StockOverview\StockList\SearchStockCommand.cs" />
     <Compile Include="StockOverview\StockOverviewView.xaml.cs">
       <DependentUpon>StockOverviewView.xaml</DependentUpon>
     </Compile>
@@ -198,6 +199,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\stocks.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="StockOverview\StockList\Images\search24.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
